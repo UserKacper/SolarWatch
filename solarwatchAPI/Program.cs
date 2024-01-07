@@ -1,3 +1,5 @@
+using solarwatchAPI.DatabaseConnector;
+using solarwatchAPI.Repository;
 
 namespace solarwatchAPI
 {
@@ -6,12 +8,13 @@ namespace solarwatchAPI
         public static void Main (string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            var connectionString = builder.Configuration[""];
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddHttpClient();
+            builder.Services.AddSingleton<ICityRepository,CitiesRepository>();
+            builder.Services.AddDbContext<CityContext>();
 
             var app = builder.Build();
 

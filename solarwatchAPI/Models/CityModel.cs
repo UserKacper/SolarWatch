@@ -2,7 +2,7 @@
 {
     public class City
     {
-        public City (string name, string country, string state, decimal latitude, decimal longitude)
+        public City (string name, string country, string state, double latitude, double longitude)
         {
             Id = Guid.NewGuid();
             Name = name;
@@ -16,8 +16,8 @@
         public string Name { get; set; }
         public string Country { get; set; }
         public string State { get; set; }
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
 
     }
 }
