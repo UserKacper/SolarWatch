@@ -32,10 +32,10 @@ namespace solarwatchAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<double>("Latitude")
+                    b.Property<double>("Lat")
                         .HasColumnType("double precision");
 
-                    b.Property<double>("Longitude")
+                    b.Property<double>("Lon")
                         .HasColumnType("double precision");
 
                     b.Property<string>("Name")

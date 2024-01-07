@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace solarwatchAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class newInitial : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,8 +19,8 @@ namespace solarwatchAPI.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     Country = table.Column<string>(type: "text", nullable: false),
                     State = table.Column<string>(type: "text", nullable: false),
-                    Latitude = table.Column<double>(type: "double precision", nullable: false),
-                    Longitude = table.Column<double>(type: "double precision", nullable: false)
+                    Lat = table.Column<double>(type: "double precision", nullable: false),
+                    Lon = table.Column<double>(type: "double precision", nullable: false)
                 },
                 constraints: table =>
                 {

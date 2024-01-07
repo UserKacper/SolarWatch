@@ -8,8 +8,8 @@ namespace solarwatchAPI.DatabaseConnector
         public DbSet<City> cities { get; set; }
         protected override void OnConfiguring (DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(
-               "Server=localhost;Port=5432;Database=Solarwatch;User Id=postgres;Password=qwerty");
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=Solarwatch;User Id=postgres;Password=qwerty");
         }
     }
 }

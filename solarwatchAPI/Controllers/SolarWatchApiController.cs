@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using solarwatchAPI.Models;
@@ -17,11 +18,11 @@ public class SolarWatchApiController : ControllerBase
         _cityRepository = cityRepository;
     }
 
-    private bool isExist (City city)
+    private async Task<bool> isExist (City city)
     {
-        if (_cityRepository.GetByName(city.Name) == null)
+        if (await _cityRepository.GetByName(city.Name) == null)
         {
-            _cityRepository.Add(city);
+            await _cityRepository.Add(city);
             return true;
         }
         return false;
@@ -37,8 +38,7 @@ public class SolarWatchApiController : ControllerBase
         response.EnsureSuccessStatusCode();
         var responseBody = await response.Content.ReadAsStringAsync();
         var city = JsonConvert.DeserializeObject<List<City>>(responseBody).FirstOrDefault();
-        Console.WriteLine(city);
-        isExist(city);
+        await isExist(city);
         return city;
     }
 
@@ -46,8 +46,8 @@ public class SolarWatchApiController : ControllerBase
     public async Task<SunsetSunriseApiResponse> GetTodaysSunsetSunriseTimes ([FromQuery] string cityName, [FromQuery] DateOnly date)
     {
         var GeocodingApiResult = await GetCityFromGeocodingApi(cityName);
-        var lon = GeocodingApiResult.Longitude;
-        var lat = GeocodingApiResult.Latitude;
+        var lon = GeocodingApiResult.Lon;
+        var lat = GeocodingApiResult.Lat;
         var name = GeocodingApiResult.Name;
 
         var ApiUrl = $"https://api.sunrise-sunset.org/json?lat={lat}&lng={lon}&date={date}";
@@ -60,9 +60,10 @@ public class SolarWatchApiController : ControllerBase
         return result;
     }
     [HttpGet("GetExistingCity")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public async Task<ActionResult<City>> GetCity (string cityName)
     {
-        var city = _cityRepository.GetByName(cityName);
+        var city = await _cityRepository.GetByName(cityName);
         if (city == null)
         {
             return NotFound($"City {cityName} not found");

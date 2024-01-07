@@ -2,22 +2,22 @@
 {
     public class City
     {
-        public City (string name, string country, string state, double latitude, double longitude)
+        public City (string name, string country, string state, double lat, double lon)
         {
             Id = Guid.NewGuid();
             Name = name;
             Country = country;
             State = state;
-            Latitude = latitude;
-            Longitude = longitude;
+            Lat = lat;
+            Lon = lon;
         }
 
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Country { get; set; }
         public string State { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        public double Lat { get; set; }
+        public double Lon { get; set; }
 
     }
 }
